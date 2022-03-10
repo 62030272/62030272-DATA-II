@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\EmployeeModel;
 
-class EmployeeController extends Controller
+class Project_type_setupController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +14,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //SELECT * FROM employee ORDER BY emp_id DESC
-        //$employee = EmployeeModel::latest()->get();
-        //SELECT * FROM employee
-        $employee = DB::table('employee')->get();
-        return view('employee.index',compact('employee'));
+        $project_type_setup = DB::table("project_type_setup")->get();
+        return view('project_type_setup.index',compact('project_type_setup'));
     }
 
     /**
@@ -29,7 +25,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee.create');
+        return view('project_type_setup.create');
     }
 
     /**
@@ -41,24 +37,19 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'emp_id'=>'required',
-            'emp_name'=>'required',
-            'emp_lname'=>'required',
-            'job'=>'required'
+            'proj_type'=>'required',
+            'proj_type_desc'=>'required'
         ]);
 
-        DB::table('employee')->insert(
+        DB::table('project_type_setup')->insert(
             [
-                'emp_id'=>$request->emp_id,
-                'emp_name'=>$request->emp_name,
-                'emp_lname'=>$request->emp_lname,
-                'job'=>$request->job,
-                'chg_hour'=>$request->chg_hour
+                'proj_type'=>$request->proj_type,
+                'proj_type_desc'=>$request->proj_type_desc
 
             ]
             );
 
-            return redirect('employee');
+            return redirect('project_type_setup');
     }
 
     /**
@@ -80,8 +71,8 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = DB::table('employee')->where('emp_id','=',$id)->get();
-        return view('employee.edit',compact('employee'));
+        $project_type_setup = DB::table('project_type_setup')->where('proj_type','=',$id)->get();
+        return view('project_type_setup.edit',compact('project_type_setup'));
     }
 
     /**
@@ -94,24 +85,19 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'emp_id'=>'required',
-            'emp_name'=>'required',
-            'emp_lname'=>'required',
-            'job'=>'required'
+            'proj_type'=>'required',
+            'proj_type_desc'=>'required'
         ]);
 
-        DB::table('employee')->where('emp_id','=',$id)->update(
+        DB::table('project_type_setup')->where('proj_type','=',$id)->update(
             [
-                'emp_id'=>$request->emp_id,
-                'emp_name'=>$request->emp_name,
-                'emp_lname'=>$request->emp_lname,
-                'job'=>$request->job,
-                'chg_hour'=>$request->chg_hour
-
+                'proj_type'=>$request->proj_type,
+                'proj_type_desc'=>$request->proj_type_desc
+                
             ]
             );
 
-            return redirect('employee');
+            return redirect('project_type_setup');
     }
 
     /**
@@ -122,8 +108,8 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('employee')->where('emp_id','=',$id)->delete();
+        DB::table('project_type_setup')->where('proj_type','=',$id)->delete();
 
-        return redirect('employee');
+        return redirect('project_type_setup');
     }
 }

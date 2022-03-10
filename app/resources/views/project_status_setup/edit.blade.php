@@ -1,0 +1,50 @@
+P@extends('layout')
+  
+@section('content')
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h2>Edit </h2>
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-primary" href=""> Back</a>
+        </div>
+    </div>
+</div>
+
+@foreach ($project_status_setup as $proj_s)
+@endforeach
+<form action="{{ route('project_status_setup.update',$proj_s->proj_status) }}" method="POST">
+    @csrf
+    @method("PUT")
+
+    <div class="row">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif   
+    </div>   
+
+     <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+                <strong>สถานะโครงการ</strong>
+                <input type="text" name="proj_status" value="{{ $proj_s->proj_status }}" class="form-control" placeholder="สถานะโครงการ">
+            </div>
+            <div class="form-group">
+                <strong>การดำเนินโครงการ</strong>
+                <input type="text" name="proj_status_desc" value="{{ $proj_s->proj_status_desc }}" class="form-control" placeholder="การดำเนินโครงการ">
+            </div>
+            <div class="card-footer ml-auto mr-auto" align=center>
+                <button type="reset" class="btn btn-danger">ยกเลิก</button>
+                <button type="submit" class="btn btn-primary">แก้ไข</button> 
+            </div>                                                                    
+        </div>
+     </div>
+</form>
+@endsection

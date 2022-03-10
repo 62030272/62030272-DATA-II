@@ -5,7 +5,7 @@
 		<div class="pull-left">
 			<h2>Show Employees</h2>
             <div class="card-header">
-                
+                <a class="btn btn-primary" href="{{ route('employee.create') }}">Insert</a>
     		</div>
 	</div>
 </div>
@@ -19,14 +19,26 @@
 				<td>Emp_LName</td>
 				<td>Job</td>
 				<td>Chg_Hour</td>
+				<td colspan=2>Operation</d>
 			</tr>
+			@foreach($employee as $emp)
+
 			<tr>
-				<td>E001</td>
-				<td>Hemmarat</td>
-				<td>Wachirahatthapong</td>
-				<td>Lecturer</td>
-				<td>35</td>
+				<td>{{ $emp->emp_id }}</td>
+				<td>{{ $emp->emp_name }}</td>
+				<td>{{ $emp->emp_lname }}</td>
+				<td>{{ $emp->job }}</td>
+				<td>{{ $emp->chg_hour }}</td>
+				<td>
+					<form action="{{ route('employee.destroy',$emp->emp_id) }}" method="POST">
+						<a class="btn btn-primary" href="{{ route('employee.edit',$emp->emp_id) }}">Edit</a>
+						@csrf
+						@method('DELETE')
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+				</td>
 			</tr>
+			@endforeach
 
         </table>
 	</div>
