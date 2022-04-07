@@ -145,3 +145,8 @@ class WorkingController extends Controller
         return redirect('working');
     }
 }
+
+// ที่เรียนวัน 18/03/2565
+// alter user u62030272@localhost identified by '123456' account lock;
+// alter user u62030272@localhost identified by '123456' account unlock;
+// 
